@@ -1,5 +1,7 @@
 # Python Basics
 
+# Great Resource - https://www.w3schools.com/python/python_operators.asp
+
 #Python runs on an interpreter system, meaning that code can be executed as soon as it is written
 
 #Python can be treated in a procedural way, an object-oriented way or a functional way.
@@ -44,6 +46,39 @@ print('The fourth index of the string ' + s + ' is ' + s[4])
 num = 12
 name = 'Sam'
 print('My number is: {one}, and my name is: {two}'.format(one=num,two=name))
+
+#Casting
+#Python is an object-orientated language, and as such it uses classes to define data types, including its primitive types.
+
+#Casting Ints
+#int() - constructs an integer number from an integer literal, 
+# a float literal (by removing all decimals), or a string literal (providing the string represents a whole number)
+print(int(1))   #1
+print(int(2.8)) #2
+print(int("3")) #3
+
+#Casting Floats
+#float() - constructs a float number from an integer literal, 
+# a float literal or a string literal (providing the string represents a float or an integer)
+print(float(1)) #1.0
+print(float(2.8)) #2.8
+print(float("3")) #3.0
+print(float("4.2")) #4.2
+
+#Casting Strings
+#str() - constructs a string from a wide variety of data types, 
+#including strings, integer literals and float literals
+print(str("s1")) #'s1'
+print(str(2))  #'2'
+print(str(3.0)) #'3.0' 
+
+"""
+There are four collection data types in the Python programming language:
+    List is a collection which is ordered and changeable. Allows duplicate members.
+    Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
+    Set is a collection which is unordered, unchangeable*, and unindexed. No duplicate members.
+    Dictionary is a collection which is ordered** and changeable. No duplicate members.
+"""
 
 #Lists
 # Lists are used to store multiple items in a single variable.
@@ -99,26 +134,204 @@ t = (1,2,3)
 print(t[0])
 
 #You cannot change a value in a tuple (will return an error)
-t[0] = 'NEW'
+#t[0] = 'NEW'
 
 #Sets
+#A set is defined only by unique elements
+#Sets are written with curly braces
+#Sets are unorderd, unchangeable and unindexed
+#Set items can appear in a different order every time you use them, and cannot be referred to by index or key.
+#Once a set is created, you cannot change its items, but you can remove items and add new items.
+x = {1,2,3} #{1,2,3}
+y = {1,2,3,2,1,2,3,2,1} #{1,2,3}
+print(x) 
+print(y)
+x.add(25)
+print(x) #{1,2,3,25}
 
-#Booleans
+#Will not print
+#print(x[1])
+
+print(len(x))
+
+z = set([1,2,3,4,3])
+print(z)
+
+#Booleans and Comparison Operators
 #You can evaluate any expression in Python, and get one of two answers, True or False.
 tru_val = True
 false_val = False
 print(tru_val) #True
 print(1>2) #False
 
+#Logic Operators
+l = (1>2) and (2<3)
+print('l is {}'.format(l)) #False
+
+k = (1 > 2) or (2 < 3)
+print('l is {}'.format(k)) #True
+
+#If, elif, else statements
+if 1 < 2:
+    print('Yep!')
+    
+if 1<2:
+    print('1 IS less than 2')
+else:
+    print('1 IS NOT less than 2')
+    
+if 1>2:
+    print('1 IS greater than 2')
+else:
+    print('1 IS NOT greater than 2')
+    
+if 1 == 2:
+    print('first')
+elif 3 == 3:
+    print('middle')
+else:
+    print('Last')
+    
+#For loops
+#A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).
+#This is less like the for keyword in other programming languages, 
+#and works more like an iterator method as found in other object-orientated programming languages.
+seq = [1,2,3,4,5,30]
+for item in seq:
+    print(item)
+    
+for item in seq:
+    print('Yep')
+    
+#Break Statement - can stop the loop before it has looped through all the items:
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  print(x)
+  if x == "banana":
+    break
+
+#Continue - With the continue statement we can stop the current iteration of the loop, and continue with the next
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  if x == "banana":
+    continue
+  print(x)
+  
+#Range - To loop through a set of code a specified number of times, we can use the range() function
+for x in range(6):
+  print(x)
+  
+# Else in a for loop - The else keyword in a for loop specifies a block of code to be executed when the loop is finished
+for x in range(6):
+  print(x)
+else:
+  print("Finally finished!") 
+  
+#While Loops
+
+i = 1
+while i < 5:
+    print('hello')
+    i=i+1
+  
+#Break
+#With the break statement we can stop the loop even if the while condition is true:
+i = 1
+while i < 6:
+  print(i)
+  if i == 3:
+    break
+  i += 1 
+
+#Range
+#range() generates a range object
+range(5)
+list(range(5))
+print(list(range(5)))
+
+#List Comprehension
+x = [1,2,3,4]
+out = []
+for item in x:
+    out.append(item**2)
+print(out)
+
+print([item**2 for item in x])
+
+#Functions
+#A function is a block of code which only runs when it is called.
+def my_function():
+    print("Hello from my function")
+    
+my_function()
+
+#Arguments
+#Arguments are often shortened to args in Python documentations.
+#You can add as many arguments as you want in a function, 
+#just separate them with a comma.
+def my_function(fname):
+  print(fname + " Refsnes")
+  
+my_function("Emil")
+  
 """
-    Booleans
-    Comparison Operators
-    if, elif, else Statements
-    for Loops
-    while Loops
-    range()
-    list comprehension
-    functions
+By default, a function must be called with the correct 
+number of arguments. Meaning that if your function expects 
+2 arguments, you have to call the function with 2 arguments, 
+not more, and not less. 
+
+If you do not know how many arguments that will be passed 
+into your function, add a * before the parameter name in the 
+function definition.
+"""
+def my_function(*kids):
+  print("The youngest child is " + kids[2])
+
+my_function("Emil", "Tobias", "Linus") 
+
+def my_function(child3, child2, child1):
+  print("The youngest child is " + child3)
+
+my_function(child1 = "Emil", child2 = "Tobias", child3 = "Linus") 
+
+"""
+The phrase Keyword Arguments are often shortened to kwargs 
+in Python documentations.
+If you do not know how many keyword arguments that will be 
+passed into your function, add two asterisk: 
+** before the parameter name in the function definition.
+"""
+def my_function(**kid):
+  print("His last name is " + kid["lname"])
+
+my_function(fname = "Tobias", lname = "Refsnes")
+
+"""
+The following example shows how to use a default parameter value.
+
+If we call the function without argument, 
+it uses the default value:
+"""
+def my_function(country = "Norway"):
+  print("I am from " + country)
+
+my_function("Sweden")
+my_function("India")
+my_function()
+my_function("Brazil") 
+
+#Return Values
+#To let a function return a value, use the return statement:
+def my_function(x):
+  return 5 * x
+
+print(my_function(3))
+print(my_function(5))
+print(my_function(9)) 
+
+t = my_function(5)
+print(t)
+"""
     lambda expressions
     map and filter
     methods
