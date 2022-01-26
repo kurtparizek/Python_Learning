@@ -261,6 +261,9 @@ print([item**2 for item in x])
 #Functions
 #A function is a block of code which only runs when it is called.
 def my_function():
+    """
+        Docstring goes here.
+    """
     print("Hello from my function")
     
 my_function()
@@ -331,11 +334,40 @@ print(my_function(9))
 
 t = my_function(5)
 print(t)
-"""
-    lambda expressions
-    map and filter
-    methods
-"""
+
+#Lambda Expressions
+#A lambda function is a small anonymous function.
+x = lambda a : a + 10
+print(x(5))
+
+x = lambda a, b : a * b
+print(x(5, 6)) 
+
+#The power of lambda is better shown when you use them as an anonymous function inside another function.
+def myfunc(n):
+  return lambda a : a * n
+
+mydoubler = myfunc(2)
+
+print(mydoubler(11))
+
+t = lambda var: var*2
+t(5)
+
+#Map and Filter
+# Map - allows for you to apply a function to a sequence
+
+def times2(var):
+    return var*2
+
+seq = [1,2,3,4,5]
+map(times2,seq)
+print(list(map(times2,seq)))
+
+print(list(map(lambda var: var*2,seq)))
 
 
+print(list(filter(lambda item: item%2 == 0,seq)))
+
+#Methods
 
