@@ -45,3 +45,26 @@ print(arr3[1,2]) #6
 #Use negative indexing to access an array from the end.
 arr5 = np.array([[1,2,3,4,5], [6,7,8,9,10]])
 print('Last element from 2nd dim: ', arr5[1, -1]) #10
+
+#Slicing Arrays
+#Slicing in python means taking elements from one given index to another given index.
+#If we don't pass start its considered 0
+#If we don't pass end its considered length of array in that dimension
+#If we don't pass step its considered 1
+arr = np.array([1, 2, 3, 4, 5, 6, 7])
+print(arr[1:5]) #[2,3,4,5,6]
+print(arr[:4]) #[1,2,3,4]
+
+#Use the minus operator to refer to an index from the end:
+print(arr[-3:-1]) #[5,6]
+print(arr[1:5:2]) #[2,4]
+
+#Return every other element from the entire array:
+print(arr[::2]) 
+
+arr2 = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+print(arr2[1,2:]) #[8,9,10]
+
+arr3 = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+print(arr3)
+print(arr3[0:2,2]) #[3,8]
