@@ -290,7 +290,7 @@ function definition.
 def my_function(*kids):
   print("The youngest child is " + kids[2])
 
-my_function("Emil", "Tobias", "Linus") 
+my_function("Emil", "Tobias", "Linus") #Linus
 
 def my_function(child3, child2, child1):
   print("The youngest child is " + child3)
@@ -338,6 +338,7 @@ print(t)
 #Lambda Expressions
 #A lambda function is a small anonymous function.
 x = lambda a : a + 10
+print(type(x))
 print(x(5))
 
 x = lambda a, b : a * b
@@ -349,10 +350,13 @@ def myfunc(n):
 
 mydoubler = myfunc(2)
 
-print(mydoubler(11))
+print(mydoubler(11)) #22
 
 t = lambda var: var*2
-t(5)
+print('t(5) is ',t(5))
+
+seq = ['soup','dog','salad','cat','great']
+print(list(filter(lambda word: word[0]=='s',seq)))
 
 #Map and Filter
 # Map - allows for you to apply a function to a sequence
@@ -362,12 +366,51 @@ def times2(var):
 
 seq = [1,2,3,4,5]
 map(times2,seq)
-print(list(map(times2,seq)))
+print(type(map(times2,seq)))
+print(list(map(times2,seq))) #[1,4,6,8,10]
 
 print(list(map(lambda var: var*2,seq)))
 
+# Filter - Filter an array, and return a new array which meets the boolean condition
+print(list(filter(lambda item: item%2 == 0,seq))) #[2,4]
 
-print(list(filter(lambda item: item%2 == 0,seq)))
+ages = [5, 12, 17, 18, 24, 32]
+
+def myFunc(x):
+  if x < 18:
+    return False
+  else:
+    return True
+
+adults = filter(myFunc, ages)
+
+for x in adults:
+  print(x) #[24,32]
 
 #Methods
+st = 'hello my name is Sam'
+print(st.lower())
+print(st.upper())
+print(st.split())
+
+tweet = 'Go Sports! #Sports'
+print(tweet.split('#'))
+print(tweet.split('#')[1])
+
+d = {'key1':'item1','key2':123}
+print(d.keys())
+print(d.items())
+
+lst = [1,2,3]
+print(lst.pop()) #3
+
+t = 'x' in ['x','y','z']
+print(t)
+
+#Tuple Unpacking
+t = [(1,2),(3,4),(5,6)]
+print(t)
+for a,b in t:
+    print(b)
+
 
