@@ -19,9 +19,40 @@ print(type(arr))
 arr2 = np.array((1,2,3,4))
 print(arr2)
 
+arr2 = np.arange(0,10)
+print(arr2)
+
+arr2 = np.arange(0,11,2)
+print(arr2)
+
+arrz = np.zeros(3)
+print(arrz)
+
+arro = np.ones(3)
+print(arro)
+
+arr7 = np.linspace(0,10,50)
+print(arr7)
+
 #2-D Array
 arr3 = np.array([[1,2,3],[4,5,6]])
 print(arr3)
+
+arrz = np.zeros((5,5))
+print(arrz)
+
+arro = np.ones((3,3))
+print(arro)
+
+arre = np.eye(4)
+print(arre)
+
+arr_2d = np.array(([5,10,15],[20,25,30],[35,40,45]))
+print(arr_2d)
+
+l = arr_2d[[[0],[2]],[[1],[2]]]
+print(l) #[10,45]
+print('#dims of l:',l.ndim)
 
 #3-D Array - An array that has 2-D arrays (matrices) as its elements
 arr4 = np.array([[[1, 2, 3], [4, 5, 6]], [[1, 2, 3], [4, 5, 6]]])
@@ -46,6 +77,16 @@ print(arr3[1,2]) #6
 arr5 = np.array([[1,2,3,4,5], [6,7,8,9,10]])
 print('Last element from 2nd dim: ', arr5[1, -1]) #10
 
+arr2d = np.zeros((10,10))
+arr_length = arr2d.shape[1]
+for i in range(arr_length):
+    arr2d[i] = i
+    
+print(arr2d[[2,4,6,8]])
+
+#Allows in any order
+arr2d[[6,4,2,7]]
+
 #Slicing Arrays
 #Slicing in python means taking elements from one given index to another given index.
 #If we don't pass start its considered 0
@@ -68,3 +109,73 @@ print(arr2[1,2:]) #[8,9,10]
 arr3 = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
 print(arr3)
 print(arr3[0:2,2]) #[3,8]
+
+#Broadcasting
+arr9 = np.arange(0,11)
+print(arr9)
+arr9[6:] = 99
+#Now note the changes also occur in our original array!
+print(arr9)
+
+#To get a copy, need to be explicit
+arr_copy = arr9.copy()
+print(arr_copy)
+
+#Selection
+arr10 = np.arange(1,11)
+print(arr10>4) #[False False False False False True True True True True True]
+bool_ar = arr10>4
+print(arr10[bool_ar])
+
+#Shape
+#NumPy arrays have an attribute called shape that returns a
+#tuple with each index having the number of corresponding elements.
+arr11 = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+print(arr11.shape) #(2,4)
+
+#Re-Shape
+arr12 = np.ones(12)
+arr12 = arr12.reshape(4,3)
+print(arr12)
+
+#Use re-shape(-1) to flatten an array
+arr13 = np.array([[1, 2, 3], [4, 5, 6]])
+arr13 = arr12.reshape(-1)
+print(arr13)
+
+#Numpy Data Types
+"""
+Below is a list of all data types in NumPy and the characters used to represent them.
+
+    i - integer
+    b - boolean
+    u - unsigned integer
+    f - float
+    c - complex float
+    m - timedelta
+    M - datetime
+    O - object
+    S - string
+    U - unicode string
+    V - fixed chunk of memory for other type ( void )
+"""
+
+#To return the type of an array, use dtype:
+print(arr4.dtype)
+
+#You can create arrays of specific data types:
+arr5 = np.array([1, 2, 3, 4], dtype='S')
+print(arr5)
+print(arr5.dtype)
+
+#Convert the data type of an existing array through using the astype function
+#The astype function creates a copy of the array, and then allows you to specify the data type as a parameter
+arr6 = np.array([1.1, 2.1, 3.1])
+newarr = arr6.astype('i')
+print(newarr)
+print(newarr.dtype)
+
+np_array = np.array([12,2,17,6,24])
+py_list = np_array.tolist() #converting array back to list
+
+
