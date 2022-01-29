@@ -178,4 +178,74 @@ print(newarr.dtype)
 np_array = np.array([12,2,17,6,24])
 py_list = np_array.tolist() #converting array back to list
 
+#Iterating over Arrays
 
+arr = np.array([1, 2, 3])
+
+for x in arr:
+  print(x) 
+  
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+for x in arr:
+  for y in x:
+    print(y)
+
+#nditer
+#The function nditer() is a helping function that can be used from very basic to very advanced iterations. 
+for x in np.nditer(arr):
+    print(x)
+
+for x in np.nditer(arr, flags=['buffered'], op_dtypes=['S']):
+  print(x) 
+  print(x.dtype)
+  
+#Joining
+arr1 = np.array([1, 2, 3])
+arr2 = np.array([4, 5, 6])
+arr = np.concatenate((arr1, arr2))
+print(arr) 
+
+arr1 = np.array([[1, 2], [3, 4]])
+arr2 = np.array([[5, 6], [7, 8]])
+arr = np.concatenate((arr1, arr2), axis=0)
+print(arr) 
+
+#Splitting
+arr = np.array([1, 2, 3, 4, 5, 6])
+newarr = np.array_split(arr, 3)
+print(newarr)
+
+#Searching Arrays
+arr = np.array([1, 2, 3, 4, 5, 4, 4])
+x = np.where(arr == 4)
+print(x) #(array([3, 5, 6],)
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+x = np.where(arr%2 == 0)
+print(x) 
+
+#Sorting
+#Note: This method returns a copy of the array, leaving the original array unchanged.
+arr = np.array([3, 2, 0, 1])
+print(np.sort(arr)) 
+
+#Filtering
+#Create a filter array that will return only values higher than 42:
+arr = np.array([41, 42, 43, 44])
+
+# Create an empty list
+filter_arr = []
+
+# go through each element in arr
+for element in arr:
+  # if the element is higher than 42, set the value to True, otherwise False:
+  if element > 42:
+    filter_arr.append(True)
+  else:
+    filter_arr.append(False)
+
+newarr = arr[filter_arr]
+
+print(filter_arr)
+print(newarr) 
