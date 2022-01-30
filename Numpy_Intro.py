@@ -34,8 +34,16 @@ print(arro)
 arr7 = np.linspace(0,10,50)
 print(arr7)
 
+random_array = np.random.randint(1,11,4)
+print(random_array)
+
+#To convert a numpy array to a panda list, use tolist():
+py_random_list = random_array.tolist()
+print(py_random_list)
+    
 #2-D Array
-arr3 = np.array([[1,2,3],[4,5,6]])
+arr3 = np.array([[1,2,3],
+                 [4,5,6]])
 print(arr3)
 
 arrz = np.zeros((5,5))
@@ -143,6 +151,9 @@ arr13 = np.array([[1, 2, 3], [4, 5, 6]])
 arr13 = arr12.reshape(-1)
 print(arr13)
 
+# Or 
+arr11.flatten()
+
 #Numpy Data Types
 """
 Below is a list of all data types in NumPy and the characters used to represent them.
@@ -227,8 +238,15 @@ print(x)
 
 #Sorting
 #Note: This method returns a copy of the array, leaving the original array unchanged.
+#If you were to use array.sort(), it would change the array
 arr = np.array([3, 2, 0, 1])
 print(np.sort(arr)) 
+
+#Sorting - Descending
+print(np.sort(arr)[::-1])
+
+np_2d_array = np.array([2,3,4],[3,4,5],[5,6,3])
+np.sort(np_2d_array,axis=0)
 
 #Filtering
 #Create a filter array that will return only values higher than 42:
@@ -249,3 +267,15 @@ newarr = arr[filter_arr]
 
 print(filter_arr)
 print(newarr) 
+
+arr = np.array([41, 42, 43, 44])
+filter_arr = arr > 42
+newarr = arr[filter_arr]
+print(filter_arr)
+print(newarr) 
+
+#Numpy Functions
+np_array = np.array([12,6,34,-2,7,28])
+np_max = np_array.max()
+print(np_max)
+print(np_array.argmax())
