@@ -62,6 +62,9 @@ l = arr_2d[[[0],[2]],[[1],[2]]]
 print(l) #[10,45]
 print('#dims of l:',l.ndim)
 
+arr_2d = np.arange(50).reshape(5,10)
+print(arr_2d)
+
 #3-D Array - An array that has 2-D arrays (matrices) as its elements
 arr4 = np.array([[[1, 2, 3], [4, 5, 6]], [[1, 2, 3], [4, 5, 6]]])
 print(arr4)
@@ -245,7 +248,7 @@ print(np.sort(arr))
 #Sorting - Descending
 print(np.sort(arr)[::-1])
 
-np_2d_array = np.array([2,3,4],[3,4,5],[5,6,3])
+np_2d_array = np.array([[2,3,4],[3,4,5],[5,6,3]])
 np.sort(np_2d_array,axis=0)
 
 #Filtering
@@ -279,3 +282,15 @@ np_array = np.array([12,6,34,-2,7,28])
 np_max = np_array.max()
 print(np_max)
 print(np_array.argmax())
+
+#Operations
+arr2 = np.arange(0,11)
+arr3 = np.arange(0,11)
+arr_add = arr2+arr3
+arr_sub = arr2 - 100
+arr_mult = arr2*arr3
+arr_dot = arr2.dot(arr3)
+
+np.sqrt(arr2)
+np.exp(arr2)
+np.max(arr2)
