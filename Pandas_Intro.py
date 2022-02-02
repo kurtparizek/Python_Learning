@@ -83,3 +83,35 @@ print(df.loc['B']['Y'])
 print(df.loc[['A','B'],['W','Y']])
 print(df.iloc[0:2,0:2])
 
+booldf = df > 0
+print(booldf)
+booldf = df[booldf]
+print(booldf)
+
+#Returns only the rows that are true:
+print(df[df['W']>0])
+print(df[df['W']>0]['X'])
+print(df[df['W']>0][['Y','X']])
+
+#Doing multiple comparisons at once:
+# df[(df['W']>0) and (df['Y']>1)] #Will return an error
+multi_col_compare = df[(df['W']>0) & (df['Y']<1)]
+
+#Resetting the matrix - must do in-place if you want to make it permanent
+print(df.reset_index())
+
+newind = 'CA NY WY OR'.split()
+df['States'] = newind
+df.set_index('States')
+
+# Index Levels
+outside = ['G1','G1','G1','G2','G2','G2']
+inside = [1,2,3,1,2,3]
+hier_index = list(zip(outside,inside))
+hier_index = pd.MultiIndex.from_tuples(hier_index)
+
+df2 = pd.DataFrame(np.random.randn(6,2),index=hier_index,columns=['A','B'])
+print(df2.loc['G1'].loc(1))
+df2.index.names = ['Groups','Num']
+print(df2.xs('G1'))
+print(df2.xs(1,level='Num'))
