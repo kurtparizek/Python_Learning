@@ -63,6 +63,7 @@ df = pd.DataFrame(randn(5,4),
 print(df['W'])
 print(df[['W','Z']])
 print(df.W)
+print(type(df['W']))
 
 #Creating a new column
 df['new'] = df['W'] + df['Y']
@@ -115,3 +116,17 @@ print(df2.loc['G1'].loc(1))
 df2.index.names = ['Groups','Num']
 print(df2.xs('G1'))
 print(df2.xs(1,level='Num'))
+
+#Dealing with NaNs
+d = {'A':[1,2,np.nan],'B':[5,np.nan,np.nan],'C':[1,2,3]}
+df3 = pd.DataFrame(d)
+print(df3)
+
+#Will drop all of the rows that have a NaN
+print(df3.dropna())
+print(df3.dropna(thresh=2))
+print(df3.fillna(value='FILL VALUE'))
+
+print(df3['A'].fillna(value=df3['A'].mean()))
+
+
