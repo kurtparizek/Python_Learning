@@ -129,4 +129,43 @@ print(df3.fillna(value='FILL VALUE'))
 
 print(df3['A'].fillna(value=df3['A'].mean()))
 
+#Groupby
+#Groupby allows you to group rows bassed off of a column and then perform
+#an aggregrate function on them
+data = {'Company':['GOOG','GOOG','MSFT','MSFT','FB','FB'],
+       'Person':['Sam','Charlie','Amy','Vanessa','Carl','Sarah'],
+       'Sales':[200,120,340,124,243,350]}
 
+df4 = pd.DataFrame(data)
+byComp = df4.groupby('Company')
+print(byComp.mean())
+print(byComp.sum().loc['FB'])
+print(byComp.count())
+print(byComp.describe())
+
+#Merging, joining and Concatenating
+
+#Reading in Data
+#To read in an excel file
+df5 = pd.read_excel("sales_data.xlsx",sheet_name = "Orders", index_col="Row ID") 
+#pd.read_csv() to read in a csv file
+
+print(df5.head())
+print(df5.columns)
+#To get the data types of the columns
+print(df5.dtypes)
+# To get information related to numerical columns:
+print(df5.describe())
+df5["Per Unit Sale"] = df5["Sales"]/df5["Quantity"]
+
+#To convert back to excel
+#pd5.to_Excel("data_2.xlsx",index=False)
+
+#Changing data types of columns
+df5["Postal Code"] = df5["Postal Code"].astype(str)
+
+#Dealing with date and time
+df5["Order Date"] = pd.to_datetime(df5["Order Date"],errors="raise",format="%Y-%m-%d")
+df5["month"] = df5["Order Date"].dt.month
+
+df5["String date"] = df5["Order Date"].dt.strftime("%b-%Y")
