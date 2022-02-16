@@ -121,10 +121,16 @@ print(df2.xs(1,level='Num'))
 d = {'A':[1,2,np.nan],'B':[5,np.nan,np.nan],'C':[1,2,3]}
 df3 = pd.DataFrame(d)
 print(df3)
+print(df3.isnull().sum())
+print(df3.isna().sum(axis=1)>0)
 
 #Will drop all of the rows that have a NaN
 print(df3.dropna())
 print(df3.dropna(thresh=2))
+print(df3.dropna(axis=0,how="any",inplace=True)) #dropping rows having any NaN value
+print(df3.dropna(axis=1,how="any",inplace=True)) #dropping columns having any NaN value
+print(df3.fillna(0)) #replacing all NaN values with 0
+print(df3.fillna(method='bfill',inplace=True)) #replacing all NaN values with value from the next row
 print(df3.fillna(value='FILL VALUE'))
 
 print(df3['A'].fillna(value=df3['A'].mean()))
@@ -142,6 +148,19 @@ print(byComp.mean())
 print(byComp.sum().loc['FB'])
 print(byComp.count())
 print(byComp.describe())
+"""
+#reading excel data from a given sheet 
+data = pd.read_excel("data.xlsx",sheet_name="Orders",header=3,index_col="Row ID")
+
+data.groupby("Region").sum() #groupby one field
+data.groupby(["Region","Category"]).sum() #groupby multiple fields
+data.groupby(["Region","Category"]).sum().unstack()
+
+gp = data.groupby("Region") #storing groupby object in a variable
+gp.groups #dictionary of group entities and the corresponding indices
+gp.get_group("South") #similar to apply filter in excel
+"""
+
 
 #Merging, joining and Concatenating
 
@@ -169,3 +188,94 @@ df5["Order Date"] = pd.to_datetime(df5["Order Date"],errors="raise",format="%Y-%
 df5["month"] = df5["Order Date"].dt.month
 
 df5["String date"] = df5["Order Date"].dt.strftime("%b-%Y")
+
+#Merging, Joining, and Concatenating
+df6 = pd.DataFrame({'A': ['A0', 'A1', 'A2', 'A3'],
+                        'B': ['B0', 'B1', 'B2', 'B3'],
+                        'C': ['C0', 'C1', 'C2', 'C3'],
+                        'D': ['D0', 'D1', 'D2', 'D3']},
+                        index=[0, 1, 2, 3])
+
+df7 = pd.DataFrame({'A': ['A4', 'A5', 'A6', 'A7'],
+                        'B': ['B4', 'B5', 'B6', 'B7'],
+                        'C': ['C4', 'C5', 'C6', 'C7'],
+                        'D': ['D4', 'D5', 'D6', 'D7']},
+                         index=[4, 5, 6, 7])
+
+df8 = pd.DataFrame({'A': ['A8', 'A9', 'A10', 'A11'],
+                        'B': ['B8', 'B9', 'B10', 'B11'],
+                        'C': ['C8', 'C9', 'C10', 'C11'],
+                        'D': ['D8', 'D9', 'D10', 'D11']},
+                        index=[8, 9, 10, 11])
+
+menu = pd.DataFrame({"item":["pizza","pasta","salad","burritto","taco","burger"],
+                    "price":[14.99,12.99,7.99,10.99,6.99,5.99],
+                    "popularity":["high","medium","low","high","medium","high"]})
+
+nutrition = pd.DataFrame({"item":["pizza","pastry","burritto","salad","pasta"],
+                         "avg_calorie":[3200,800,940,240,740],
+                         "protein":["12%","4%","16%","6%","10%"]})
+
+#Concatenation
+#Concatenation basically glues together DataFrames. 
+#Keep in mind that dimensions should match along the axis you are concatenating on.
+#Can combine as many dataframes as you would like 
+df_concat_vert = pd.concat([df6,df7,df8])
+df_concat_horz = pd.concat([df6,df7,df8],axis=1)
+
+df_concat_horz1 = pd.concat([menu,nutrition],axis=1,ignore_index=False)
+
+
+#Merge
+#The merge function allows you to merge DataFrames together using a similar logic as merging SQL Tables together.
+left = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                     'A': ['A0', 'A1', 'A2', 'A3'],
+                     'B': ['B0', 'B1', 'B2', 'B3']})
+   
+right = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                          'C': ['C0', 'C1', 'C2', 'C3'],
+                          'D': ['D0', 'D1', 'D2', 'D3']}) 
+
+df_merge1 = pd.merge(left,right,how='inner',on='key')
+
+left = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K2'],
+                     'key2': ['K0', 'K1', 'K0', 'K1'],
+                        'A': ['A0', 'A1', 'A2', 'A3'],
+                        'B': ['B0', 'B1', 'B2', 'B3']})
+    
+right = pd.DataFrame({'key1': ['K0', 'K1', 'K1', 'K2'],
+                               'key2': ['K0', 'K0', 'K0', 'K0'],
+                                  'C': ['C0', 'C1', 'C2', 'C3'],
+                                  'D': ['D0', 'D1', 'D2', 'D3']})
+
+df_merge2 = pd.merge(left, right, on=['key1', 'key2'])
+df_merge3 = pd.merge(left, right, how='outer', on=['key1', 'key2'])
+df_merge4 = pd.merge(left, right, how='right', on=['key1', 'key2'])
+df_merge5 = pd.merge(left, right, how='left', on=['key1', 'key2'])
+
+df_merge6 = menu.merge(nutrition,how="inner")
+df_merge7 = menu.merge(nutrition,how="outer")
+df_merge8 = menu.merge(nutrition,how="left")
+df_merge9 = menu.merge(nutrition,how="right")
+
+#Joining
+#Joining is a convenient method for combining the columns of two potentially differently-indexed DataFrames 
+#into a single result DataFrame.
+#Just like an Excel Vlookup
+left = pd.DataFrame({'A': ['A0', 'A1', 'A2'],
+                     'B': ['B0', 'B1', 'B2']},
+                      index=['K0', 'K1', 'K2']) 
+
+right = pd.DataFrame({'C': ['C0', 'C2', 'C3'],
+                    'D': ['D0', 'D2', 'D3']},
+                      index=['K0', 'K2', 'K3'])
+
+left.join(right)
+left.join(right, how='outer')
+
+
+"""
+menu.set_index("items",inplace=False)
+menu.reset_index(inplace=False)
+menu.set_index("items").join(nutrition.set_index("item"))
+"""
