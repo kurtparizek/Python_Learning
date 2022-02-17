@@ -228,6 +228,7 @@ df_concat_horz1 = pd.concat([menu,nutrition],axis=1,ignore_index=False)
 
 #Merge
 #The merge function allows you to merge DataFrames together using a similar logic as merging SQL Tables together.
+#Joins on columns
 left = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
                      'A': ['A0', 'A1', 'A2', 'A3'],
                      'B': ['B0', 'B1', 'B2', 'B3']})
@@ -261,7 +262,7 @@ df_merge9 = menu.merge(nutrition,how="right")
 #Joining
 #Joining is a convenient method for combining the columns of two potentially differently-indexed DataFrames 
 #into a single result DataFrame.
-#Just like an Excel Vlookup
+#Joins on indexes instead of columns
 left = pd.DataFrame({'A': ['A0', 'A1', 'A2'],
                      'B': ['B0', 'B1', 'B2']},
                       index=['K0', 'K1', 'K2']) 
@@ -273,9 +274,28 @@ right = pd.DataFrame({'C': ['C0', 'C2', 'C3'],
 left.join(right)
 left.join(right, how='outer')
 
-
 """
 menu.set_index("items",inplace=False)
 menu.reset_index(inplace=False)
 menu.set_index("items").join(nutrition.set_index("item"))
 """
+
+#Pandas Operations
+df9 = pd.DataFrame({'col1':[1,2,3,4],'col2':[444,555,666,444],'col3':['abc','def','ghi','xyz']})
+df9['col2'].unique()
+df9['col2'].nunique()
+df9['col2'].value_counts()
+
+df9[df9['col2']>2]
+
+df9[(df9['col2']>2) & (df9['col2']==444)]
+
+def times2(x):
+    return x*2
+
+print(df9['col1'].apply(times2))
+
+print(df9['col2'].apply(lambda x:x*2))
+
+
+
